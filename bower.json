@@ -1,0 +1,23 @@
+{
+  "name": "php-simpe-todo",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Andrzej <kierski.andrzej@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jQuery": "^3.1.1",
+    "bootstrap": "v4.0.0-beta"
+  },
+  "directory": "src/components"
+}
