@@ -1,5 +1,5 @@
 {
-  "name": "food-theme-mediaflex",
+  "name": "php-simple-todo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,8 @@
     "scss": "node-sass --output-style compressed -o public/css src/scss",
     "watch:scss": "onchange 'src/scss/**/*.scss' -- npm run scss",
     "compile:js": "onchange 'src/js/*.js' -- gulp",
-    "serve": "live-server --port=3000 --entry-file=index.html",
     "watch": "concurrently --kill-others \"npm run compile:js\" \"npm run watch:scss\"",
-    "dev": "concurrently --kill-others \"npm run watch\" \"npm run serve\""
+    "dev": "concurrently --kill-others \"npm run watch\""
   },
   "author": "AK",
   "license": "ISC",
@@ -22,7 +21,6 @@
     "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^2.2.0",
     "gulp-uglify": "^2.0.0",
-    "live-server": "^1.2.0",
     "node-sass": "^4.5.0",
     "onchange": "^3.2.1",
     "parallelshell": "^2.0.0"
