@@ -1,29 +1,60 @@
-<?php include 'views/header.php' ?>
-<div class="video-background">
+<?php 
 
-    <video autoplay loop muted plays-inline>
-        <source src="public/video/forest.mov"
-            type="video/mp4">
-    </video>
+try {
+  $pdo = new PDO('mysql:host=hostname', 'user', 'password');
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $pdo->exec('SET NAMES "utf8"');
+}
+catch (PDOException $e) {
+  $error = 'Problem with connect';
+  include 'views/error.php';
+  exit();
+}
 
-</div>
+if (isset($_POST['todoItem'])) {
+  try {
+    $sql = 'INSERT INTO items SET
+        item = :item,
+        dateItem = CURDATE()';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':item', $_POST['todoItem']);
+    $s->execute();
+  } catch (PDOException $e) {
+    $error = 'Error add item: ' . $e->getMessage();
+    include 'error.html.php';
+    exit();
+  }
 
-    <div class="main-content">
-        <div class="container">
-            <div class="row justify-content-md-center">
+  header('Location: .');
+  exit();
+}
 
-                <div class="jumbotron">
-                    <h4 class="display-4">Todo list</h4>
-                    <ul>
-                        <li>
-                            <h5>Item Item Item Item Item Item Item Item Item Item</h5>
-                            <button type="button" class="btn btn-outline-danger">Delete</button>
-                        </li>
-                    </ul>
-                </div>
+if (isset($_GET['deleteItem'])) {
+  try {
+    $sql = 'DELETE FROM items WHERE id = :id';
+    $s = $pdo->prepare($sql);
+    $s->bindValue(':id', $_POST['id']);
+    $s->execute();
+  } catch (PDOException $e) {
+    $error = 'Error with delete item: ' . $e->getMessage();
+    include 'views/error.php';
+    exit();
+  }
+  header('Location: .');
+  exit();
+}
 
-            </div>
-        </div>
-    </div>
+try {
+  $sql = 'SELECT id, item FROM items';
+  $result = $pdo->query($sql);
+} catch (PDOException $e) {
+  $error = 'Error get list of items ' . $e->getMessage();
+  include 'views/error.php';
+  exit();
+}
 
-<?php include 'views/footer.php' ?>
+while ($row = $result->fetch()) {
+  $itemsEl[] = array('id' => $row['id'], 'text' => $row['item']);
+}
+
+include 'views/home.php';

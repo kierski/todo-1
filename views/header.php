@@ -12,3 +12,15 @@
 </head>
 
 <body>
+
+<div class="video-background">
+
+    <video autoplay loop muted plays-inline>
+        <source src="public/video/forest.mov" type="video/mp4">
+    </video>
+
+</div>
+
+<div class="main-content">
+    <div class="container">
+        <div class="row justify-content-md-center">
